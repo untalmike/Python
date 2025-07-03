@@ -3,6 +3,7 @@ import sys # Importa el módulo sys
 import random as rdm# Importa el módulo random
 from enum import Enum # Importa la clase Enum del módulo enum
 import kansas # Importa el módulo kansas
+from rps7 import rock_paper_scissors
 
 print(math.pi) # Imprime el valor de pi
 # random.choice("123") # Elige un elemento aleatorio de la cadena "123"
@@ -15,3 +16,5 @@ print(math.pi) # Imprime el valor de pi
 
 print(__name__)  # Imprime el nombre del módulo actual
 print(kansas.__name__)  # Imprime el nombre del módulo kansas
+
+rock_paper_scissors() # Llama a la función rock_paper_scissors del módulo rps7
