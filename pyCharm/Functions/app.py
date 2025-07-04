@@ -116,6 +116,7 @@ emojis = {
     ":&": "😖",
     ":!": "😲",
     ":^": "😏",
+    "bye": "👋",
 }
 
 # Replace emojis in the words list

@@ -2,14 +2,16 @@ import sys
 import random
 from enum import Enum
 
-def rps():
+def rps(name="PlayerOne"):
     """Function to play Rock, Paper, Scissors."""
     game_count = 0  # Initialize game count
     player_wins = 0  # Initialize player wins
     python_wins = 0  # Initialize Python wins
 
     def play_rps():
-        nonlocal player_wins, python_wins # Use nonlocal to modify outer variables
+        nonlocal name
+        nonlocal player_wins
+        nonlocal python_wins # Use nonlocal to modify outer variables
 
         class RPS(Enum):
             ROCK = 1
@@ -17,10 +19,10 @@ def rps():
             SCISSORS = 3
 
         playerchoice = input(
-            "\nEnter \n1 for Rock, \n2 for Paper, \n3 for Scissors, \nor 0 to exit: ")
+            f"\n{name}, enter \n1 for Rock, \n2 for Paper, \n3 for Scissors:\n\n")
 
         if playerchoice not in ["1", "2", "3"]:
-            print("You must enter 1, 2, or 3.")
+            print(f"{name}, you must enter 1, 2, or 3.")
             return play_rps()
         
         player = int(playerchoice)
@@ -29,20 +31,22 @@ def rps():
 
         computer = int(computerchoice)
 
-        print(f"\nYou chose {str(RPS(player)).replace('RPS.','').title()}")
-        print(f"\nPython chose {str(RPS(computer)).replace('RPS.','').title()}")
+        print(f"\n{name}, you chose {str(RPS(player)).replace('RPS.','').title()}.")
+        print(f"Python chose {str(RPS(computer)).replace('RPS.','').title()}.\n")
         
 
         def decide_winner(player, computer):
             """Function to decide the winner of the game."""
-            nonlocal player_wins, python_wins  # Use nonlocal to modify outer variables
+            nonlocal name
+            nonlocal player_wins
+            nonlocal python_wins  # Use nonlocal to modify outer variables
 
             if player == 1 and computer == 3:
                 player_wins += 1
-                return "You win! 🎉"
+                return f"{name}, you win! 🎉"
             elif player == 2 and computer == 1:
                 player_wins += 1
-                return "You win! 🎉"
+                return f"{name}, you win! 🎉"
             elif player == 3 and computer == 2:
                 player_wins += 1
                 return "You win! 🎉"
@@ -50,7 +54,7 @@ def rps():
                 return "😲 Tie game!"
             else:
                 python_wins += 1
-                return "🐍 Python wins!"
+                return f"🐍 Python wins!\nSorry, {name}..😢"
 
         game_result = decide_winner(player, computer)
 
@@ -59,11 +63,11 @@ def rps():
         nonlocal game_count  # Use nonlocal to modify outer variable
         game_count += 1  # Increment game count
 
-        print(f"\nGame count: {str(game_count)}")
-        print(f"\nPlayer wins: {str(player_wins)}")
-        print(f"\nPython wins: {str(python_wins)}")
+        print(f"\nGame count: {game_count}")
+        print(f"\n{name}'s wins: {player_wins}")
+        print(f"\nPython wins: {python_wins}")
 
-        print("\nPlay again?")
+        print(f"\nDo you play again {name}?")
 
         while True:
             playagain = input("\nY for Yes or \n Q to Quit\n")
@@ -76,12 +80,26 @@ def rps():
             return play_rps()
         else:
             print(f"\n🎉🎉🎉🎉")
-            print("Thanks for playing!\n")
-            sys.exit("Bye! 👋")  # Exit the game
+            print(f"Thanks for playing {name}!\n")
+            sys.exit(f"Bye {name}! 👋")  # Exit the game
 
     return play_rps
 
-rock_paper_scissors = rps()
-
 if __name__ == "__main__":
+
+    import argparse # parser for command line arguments
+
+    parser = argparse.ArgumentParser(
+        description="Provides a personalized game experience."
+    )
+
+    # add an argument for the name of the person to greet
+    parser.add_argument(
+        "-n", "--name", metavar="name",
+        required=True, help="Name of the person playing the game."
+    )
+
+    args = parser.parse_args()
+
+    rock_paper_scissors = rps(args.name)
     rock_paper_scissors()  # Start the game if this script is run directly
