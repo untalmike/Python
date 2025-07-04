@@ -18,6 +18,7 @@ def rps():
 
         playerchoice = input(
             "\nEnter \n1 for Rock, \n2 for Paper, \n3 for Scissors, \nor 0 to exit: "
+        )
 
         if playerchoice not in ["1", "2", "3"]:
             print("You must enter 1, 2, or 3.")
@@ -31,6 +32,3 @@ def rps():
 
         print(f"\nYou chose {str(RPS(player)).replace('RPS.','').title()}")
         print(f"\nPython chose {str(RPS(computer)).replace('RPS.','').title()}")
-        )
-
-        def
